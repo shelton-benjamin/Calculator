@@ -14,6 +14,7 @@ public class JavaCalculator extends javax.swing.JFrame {
     private double total1 = 0.0;
     private double total2 = 0.0;
     private char math_operator;
+    private boolean equalsPressed = false;
 
     /**
      * Creates new form JavaCalculator
@@ -55,7 +56,9 @@ public class JavaCalculator extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculator");
 
+        txtDisplay.setEditable(false);
         txtDisplay.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtDisplay.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         btnOne.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnOne.setText("1");
@@ -319,51 +322,61 @@ public class JavaCalculator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTwoActionPerformed
+        solutionDisplayed();
         String btnTwoText = txtDisplay.getText() + btnTwo.getText();
         txtDisplay.setText(btnTwoText);
     }//GEN-LAST:event_btnTwoActionPerformed
 
     private void btnThreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThreeActionPerformed
+        solutionDisplayed();
         String btnThreeText = txtDisplay.getText() + btnThree.getText();
         txtDisplay.setText(btnThreeText);
     }//GEN-LAST:event_btnThreeActionPerformed
 
     private void btnSixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSixActionPerformed
+        solutionDisplayed();
         String btnSixText = txtDisplay.getText() + btnSix.getText();
         txtDisplay.setText(btnSixText);
     }//GEN-LAST:event_btnSixActionPerformed
 
     private void btnSevenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSevenActionPerformed
+        solutionDisplayed();
         String btnSevenText = txtDisplay.getText() + btnSeven.getText();
         txtDisplay.setText(btnSevenText);
     }//GEN-LAST:event_btnSevenActionPerformed
 
     private void btnOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOneActionPerformed
+        solutionDisplayed();
         String btnOneText = txtDisplay.getText() + btnOne.getText();
         txtDisplay.setText(btnOneText);
     }//GEN-LAST:event_btnOneActionPerformed
 
     private void btnFourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFourActionPerformed
+        solutionDisplayed();
         String btnFourText = txtDisplay.getText() + btnFour.getText();
         txtDisplay.setText(btnFourText);
     }//GEN-LAST:event_btnFourActionPerformed
 
     private void btnFiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiveActionPerformed
+        solutionDisplayed();
         String btnFiveText = txtDisplay.getText() + btnFive.getText();
         txtDisplay.setText(btnFiveText);
     }//GEN-LAST:event_btnFiveActionPerformed
 
     private void btnEightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEightActionPerformed
+        solutionDisplayed();
         String btnEightText = txtDisplay.getText() + btnEight.getText();
         txtDisplay.setText(btnEightText);
     }//GEN-LAST:event_btnEightActionPerformed
 
     private void btnNineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNineActionPerformed
+        solutionDisplayed();
         String btnNineText = txtDisplay.getText() + btnNine.getText();
         txtDisplay.setText(btnNineText);
     }//GEN-LAST:event_btnNineActionPerformed
 
     private void btnZeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZeroActionPerformed
+        solutionDisplayed();
         String btnZeroText = txtDisplay.getText() + btnZero.getText();
         txtDisplay.setText(btnZeroText);
     }//GEN-LAST:event_btnZeroActionPerformed
@@ -388,8 +401,14 @@ public class JavaCalculator extends javax.swing.JFrame {
                 total2 = total1 * Double.parseDouble(txtDisplay.getText());
                 break;
         }
-        txtDisplay.setText(Double.toString(total2));
+
+        if (total2 % 1 == 0) {
+            txtDisplay.setText(Integer.toString((int) total2));
+        } else {
+            txtDisplay.setText(Double.toString(total2));
+        }
         total1 = 0;
+        equalsPressed = true;
     }//GEN-LAST:event_btnEqualsActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -398,8 +417,13 @@ public class JavaCalculator extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnDecimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDecimalActionPerformed
-        String btnDecimalText = txtDisplay.getText() + btnDecimal.getText();
-        txtDisplay.setText(btnDecimalText);
+        String display = txtDisplay.getText();
+        int index = display.indexOf(btnDecimal.getText());
+
+        if (index == -1) {
+            String btnDecimalText = txtDisplay.getText() + btnDecimal.getText();
+            txtDisplay.setText(btnDecimalText);
+        }
     }//GEN-LAST:event_btnDecimalActionPerformed
 
     private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
@@ -422,6 +446,13 @@ public class JavaCalculator extends javax.swing.JFrame {
         math_operator = btnText.charAt(0);
         total1 += Double.parseDouble(txtDisplay.getText());
         txtDisplay.setText("");
+    }
+
+    private void solutionDisplayed() {
+        if (equalsPressed) {
+            txtDisplay.setText("");
+            equalsPressed = false;
+        }
     }
 
     /**
